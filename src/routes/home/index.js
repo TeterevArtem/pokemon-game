@@ -6,7 +6,6 @@ import Bg1 from '../../assets/bg1.jpg';
 import Bg2 from '../../assets/bg3.jpg';
 import PokemonCard from '../../component/pokemonCards';
 import {POKEMONS, color} from '../../assets/services/index.js'
-import MenuHeader from '../../component/menuHeader';
 
 
 const HomePage = ( {onChangePage} ) => {
@@ -15,7 +14,6 @@ const HomePage = ( {onChangePage} ) => {
   }
   return (
     <>
-      <MenuHeader />
       <Header title="This is title" descr="This is Description!" onClickButton={handlerClickButton}/>
       <Layout title="This is layout 1" urlBg={Bg1}>
         <p>
