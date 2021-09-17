@@ -26,7 +26,8 @@ const POKEMONS = [
       "right": 2,
       "bottom": 7,
       "left": 5
-    }
+    },
+    "active": false
   },
   {
     "abilities": [
@@ -53,7 +54,8 @@ const POKEMONS = [
       "right": 9,
       "bottom": "A",
       "left": "A"
-    }
+    },
+    "active": false
   },
   {
     "abilities": [
@@ -79,7 +81,8 @@ const POKEMONS = [
       "right": "A",
       "bottom": 9,
       "left": 6
-    }
+    },
+    "active": false
   },
   {
     "abilities": [
@@ -105,7 +108,8 @@ const POKEMONS = [
       "right": 4,
       "bottom": 2,
       "left": 7
-    }
+    },
+    "active": false
   },
   {
     "abilities": [
@@ -131,7 +135,8 @@ const POKEMONS = [
       "right": 6,
       "bottom": 1,
       "left": 4
-    }
+    },
+    "active": false
   }
 ]
 

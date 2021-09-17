@@ -1,16 +1,16 @@
-import {useState} from 'react';
 import s from './pokemon.module.css';
+import cn from 'classnames';
 import cardBack from "./assets/card-back-side.jpg";
 
-const PokemonCard = ({ name, img, id, type, values}) => {
-  const [isActive, setActive] = useState(false);
-  const handlerClick = () => {
-    setActive(!isActive)
+const PokemonCard = ({ name, img, id, type, values, isActive, onFlipCard}) => {
+
+  const onToggleFlip= () => {
+    onFlipCard && onFlipCard(id);
   }
 
   return (
-    <div className={s.root} onClick={handlerClick}>
-      <div className={`${s.pokemonCard} ${isActive ? s.active : ''}`}>
+    <div className={s.root} onClick={onToggleFlip}>
+      <div className={cn(s.pokemonCard, {[s.active]: isActive})}>
         <div className={s.cardFront}>
             <div className={`${s.wrap} ${s.front}`}>
                 <div className={`${s.pokemon} ${s[type]}`}>

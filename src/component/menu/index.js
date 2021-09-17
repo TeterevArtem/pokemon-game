@@ -16,14 +16,14 @@ const MENU = [
     "to" : "/about"
   },
   {
-    "title": 'CONTACT',
-    "to" : "/contact"
+    "title": 'CONTACTS',
+    "to" : "/contacts"
   },
 ]
 
-const Menu = ({ isActive }) => {
+const Menu = ({ isActive, toggleMenu}) => {
   const onMenuClick = () => {
-    console.log(isActive);
+    toggleMenu && toggleMenu();
   }
   return (
     <div className={cn(s.menuContainer, {
@@ -37,7 +37,7 @@ const Menu = ({ isActive }) => {
             MENU.map( ({to, title}, index) => {
               return (
                 <li key={index}>
-                  <Link to={to}>
+                  <Link to={to} onClick={onMenuClick}>
                     {title}
                   </Link>
                 </li>
