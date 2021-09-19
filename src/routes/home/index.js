@@ -1,12 +1,9 @@
-import s from './style.module.css';
 import Header from '../../component/header';
 import Footer from '../../component/footer';
 import Layout from '../../component/layout';
 import Bg1 from '../../assets/bg1.jpg';
 import Bg2 from '../../assets/bg3.jpg';
-import PokemonCard from '../../component/pokemonCards';
-import {POKEMONS, color} from '../../assets/services/index.js'
-import MenuHeader from '../../component/menuHeader';
+import {color} from '../../assets/services/index.js'
 
 
 const HomePage = ( {onChangePage} ) => {
@@ -15,7 +12,6 @@ const HomePage = ( {onChangePage} ) => {
   }
   return (
     <>
-      <MenuHeader />
       <Header title="This is title" descr="This is Description!" onClickButton={handlerClickButton}/>
       <Layout title="This is layout 1" urlBg={Bg1}>
         <p>
@@ -26,11 +22,6 @@ const HomePage = ( {onChangePage} ) => {
         </p>
       </Layout>
       <Layout title="This is layout 2" descr="This is Description! 2" colorBg={color}>
-        <div className={s.flex}>
-          {
-            POKEMONS.map( items => <PokemonCard key={items.id} name={items.name} img={items.img} id={items.id} type={items.type} values={items.values} />) 
-          }
-        </div>
       </Layout>
       <Layout title="this is layout 3" descr="This is Description! 3" urlBg={Bg2}>
         <p>
