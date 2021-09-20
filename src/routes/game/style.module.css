@@ -4,3 +4,11 @@
   align-items: center;
   flex-wrap: wrap;
 }
+.button{
+  display: block;
+  margin: 0 auto;
+  padding: 20px 40px;
+  background: purple;
+  color: white;
+  text-align: 24px;
+}

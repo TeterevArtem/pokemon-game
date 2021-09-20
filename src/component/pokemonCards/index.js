@@ -2,10 +2,10 @@ import s from './pokemon.module.css';
 import cn from 'classnames';
 import cardBack from "./assets/card-back-side.jpg";
 
-const PokemonCard = ({ name, img, id, type, values, isActive, onFlipCard}) => {
+const PokemonCard = ({key, name, img, id, type, values, isActive, onFlipCard }) => {
 
-  const onToggleFlip= () => {
-    onFlipCard && onFlipCard(id);
+  const onToggleFlip = () => {
+    onFlipCard && onFlipCard(key,id);
   }
 
   return (
@@ -24,7 +24,7 @@ const PokemonCard = ({ name, img, id, type, values, isActive, onFlipCard}) => {
                         <img src={img} alt={name} />
                     </div>
                     <div className={s.info}>
-                        <span className={s.number}>#{id}</span>
+                        <span className={s.number}>#{}</span>
                         <h3 className={s.name}>{name}</h3>
                         <small className={s.type}>Type: <span>{type}</span></small>
                     </div>
