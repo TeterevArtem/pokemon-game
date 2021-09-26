@@ -22,7 +22,7 @@ const FinishPage = () => {
   const handleSelectedClick = (id) => {
 
     setPlayer2( prevState => {
-      return prevState.reduce( (acc, item) => {;
+      return prevState.reduce( (acc, item) => {
         item.selected = false;
         if (item.id === id) {
           item.selected = true;
