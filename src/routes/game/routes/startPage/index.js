@@ -11,6 +11,7 @@ const StartPage = () => {
   const firebase = useContext(FirebaseContext); 
   const pokemonContext = useContext(PokemonContext);
   const history = useHistory('/')
+
   const handlerClickSelected = ( key ) => {
     const pokemon = {...pokemons[key]};
     pokemonContext.onSelectedPokemon(key, pokemon);
@@ -28,14 +29,14 @@ const StartPage = () => {
   
   useEffect( () => {
     firebase.getPokemonSocket( pokemons => {
+      Object.values(pokemons).map( item => {
+        item.selected = false;
+      })
       setPokemons(pokemons);
     });
     return () => firebase.offPokemonSocket();
-  },[]);
+  },[firebase]);
   
-  // const addNewPokemon = () => {
-  //  firebase.addPokemons(data);
-  // }
   const handlerStartGame = () => {
     history.push('/game/board')
   }
