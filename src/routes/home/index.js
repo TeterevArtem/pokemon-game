@@ -4,11 +4,15 @@ import Layout from '../../component/layout';
 import Bg1 from '../../assets/bg1.jpg';
 import Bg2 from '../../assets/bg3.jpg';
 import {color} from '../../assets/services/index.js'
+import { useHistory } from 'react-router';
+;
 
 
-const HomePage = ( {onChangePage} ) => {
-  const handlerClickButton = (page) => {
-    onChangePage && onChangePage(page);
+const HomePage = () => {
+
+  const history = useHistory()
+  const handlerClickButton = () => {
+    history.replace('/game')
   }
   return (
     <>
