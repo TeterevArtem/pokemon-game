@@ -2,19 +2,23 @@ import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import PokemonCard from "../../../../component/pokemonCards";
-import { fetchPokemons, getPokemonAsync, setSelectedPokemon, selectPokemonData, selectedPokemonData} from '../../../../store/pokemon';
+import { fetchPokemons, getPokemonAsync, setSelectedPokemon, selectPokemonData, handleSelectedPokemons, selectedPokemonPlayer1} from '../../../../store/pokemon';
 import s from './style.module.css';
 
 const StartPage = () => {
   const [pokemons, setPokemons] = useState({});
+
   const history = useHistory('/')
-  const pokemonsRedux = useSelector(selectPokemonData);
+  const pokemonStoreData = useSelector(selectPokemonData);
   
   const dispatch = useDispatch();
-  // const isLoading = useSelector(selectPokemonLoading)
-
+  
   const handlerClickSelected = ( key ) => {
+    
     const pokemon = {...pokemons[key]};
+
+    dispatch(handleSelectedPokemons(key));
+
     dispatch(setSelectedPokemon({key, pokemon}));
 
     setPokemons(prevState => {
@@ -35,8 +39,8 @@ const StartPage = () => {
   },[dispatch]);
 
   useEffect( () => {
-    setPokemons(pokemonsRedux)
-  },[pokemonsRedux])
+    setPokemons(pokemonStoreData)
+  },[pokemonStoreData])
 
   const handlerStartGame = () => {
     history.push('/game/board')
@@ -45,7 +49,7 @@ const StartPage = () => {
   return (
     <>
       
-      <button className={s.button} onClick={handlerStartGame} disabled={Object.keys(selectedPokemonData).length < 5}>Start Game</button>
+      <button className={s.button} onClick={handlerStartGame} disabled={Object.entries(selectedPokemonPlayer1).length < 5}>Start Game</button>
      
       <div>
         <div className={s.flex}>
@@ -63,7 +67,7 @@ const StartPage = () => {
                   isActive={true}
                   isSelected={selected}
                   onFlipCard={ () => {
-                    if (Object.keys(selectedPokemonData).length < 5 || selected) {
+                    if (Object.keys(pokemonStoreData).length < 5 || selected) {
                       handlerClickSelected(key)
                     }
                     
