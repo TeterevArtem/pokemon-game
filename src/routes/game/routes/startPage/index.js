@@ -1,20 +1,25 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import PokemonCard from "../../../../component/pokemonCards";
-import { FirebaseContext } from '../../../../context/firebaseContext';
-import { PokemonContext } from '../../../../context/pokemonContext';
+import { fetchPokemons, getPokemonAsync, setSelectedPokemon, selectPokemonData, handleSelectedPokemons, selectedPokemonPlayer1} from '../../../../store/pokemon';
 import s from './style.module.css';
 
 const StartPage = () => {
   const [pokemons, setPokemons] = useState({});
 
-  const firebase = useContext(FirebaseContext); 
-  const pokemonContext = useContext(PokemonContext);
   const history = useHistory('/')
-
+  const pokemonStoreData = useSelector(selectPokemonData);
+  
+  const dispatch = useDispatch();
+  
   const handlerClickSelected = ( key ) => {
+    
     const pokemon = {...pokemons[key]};
-    pokemonContext.onSelectedPokemon(key, pokemon);
+
+    dispatch(handleSelectedPokemons(key));
+
+    dispatch(setSelectedPokemon({key, pokemon}));
 
     setPokemons(prevState => {
       return ({
@@ -26,17 +31,17 @@ const StartPage = () => {
       })
     })
   }
-  
+
   useEffect( () => {
-    firebase.getPokemonSocket( pokemons => {
-      Object.values(pokemons).map( item => {
-        item.selected = false;
-      })
-      setPokemons(pokemons);
-    });
-    return () => firebase.offPokemonSocket();
-  },[firebase]);
-  
+    setPokemons(fetchPokemons)
+    dispatch(getPokemonAsync())
+    
+  },[dispatch]);
+
+  useEffect( () => {
+    setPokemons(pokemonStoreData)
+  },[pokemonStoreData])
+
   const handlerStartGame = () => {
     history.push('/game/board')
   }
@@ -44,7 +49,7 @@ const StartPage = () => {
   return (
     <>
       
-        <button className={s.button} onClick={handlerStartGame} disabled={Object.keys(pokemonContext.pokemons).length < 5}>Start Game</button>
+      <button className={s.button} onClick={handlerStartGame} disabled={Object.entries(selectedPokemonPlayer1).length < 5}>Start Game</button>
      
       <div>
         <div className={s.flex}>
@@ -62,7 +67,7 @@ const StartPage = () => {
                   isActive={true}
                   isSelected={selected}
                   onFlipCard={ () => {
-                    if (Object.keys(pokemonContext.pokemons).length < 5 || selected) {
+                    if (Object.keys(pokemonStoreData).length < 5 || selected) {
                       handlerClickSelected(key)
                     }
                     
