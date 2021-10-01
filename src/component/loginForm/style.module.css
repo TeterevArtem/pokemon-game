@@ -1,0 +1,10 @@
+.button_wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.button_wrap span{
+  font-size: 18px;
+  color: #f300b4;
+  cursor: pointer;
+}
