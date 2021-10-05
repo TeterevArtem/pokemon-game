@@ -4,6 +4,8 @@ import Menu from "../menu";
 import Modal from '../modal';
 import Navbar from "../navbar";
 import { NotificationManager } from 'react-notifications';
+import { useDispatch } from 'react-redux';
+import { getUserUpdateAsync } from '../../store/users';
 
 const loginSignupUser = async ({email, password, type}) => {
   const requestOptions = {
@@ -29,6 +31,9 @@ const MenuHeader = ({bgActive}) => {
   const [isActive, setActive] = useState(null);
   const [isOpenModal, setOpenModal] = useState(false)
 
+
+  const dispatch = useDispatch();
+
   const handlerClick = () => {
     setActive(prevState => !prevState)
   }
@@ -43,11 +48,21 @@ const MenuHeader = ({bgActive}) => {
     if(response.hasOwnProperty("error")){
       NotificationManager.error(response.error.message, "Wrong!!!")
     }else{
+      if (props.type === 'signup') {
+        const pokemonsStart = await fetch('https://reactmarathon-api.herokuapp.com/api/pokemons/starter').then(res => res.json());
+        
+        for (const item of pokemonsStart.data) {
+          await fetch(`https://pokemon-game-7cbbc-default-rtdb.firebaseio.com/${response.localId}/pokemons.json?auth=${response.idToken}`, {
+            method: 'POST',
+            body: JSON.stringify(item)
+          })
+        }
+      }
       NotificationManager.success('Success!!!')
       localStorage.setItem('idToken', response.idToken);
-      handleClickModal()
+      handleClickModal();
+      dispatch(getUserUpdateAsync());
     }
-    
   }
 
   return (

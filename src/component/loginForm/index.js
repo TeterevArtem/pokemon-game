@@ -34,8 +34,8 @@ const LoginForm = ({onSubmit, isResetField = false}) => {
       <Input label="Email" name="email" value={emailValue} onChangeInput={setEmailValue} />
       <Input label="Password" name="password" type="password" value={passwordValue} onChangeInput={setPasswordValue} />
       <div className={s.button_wrap}>
-        <button>{authStateRedux ? "Войти": "Зарегистрироваться"}</button>
-        <span onClick={handlerChangeText}>{authStateRedux ? "Auth" : "Sign Up"}</span>
+        <button>{authStateRedux ? "Log In" : "Sign Up"}</button>
+        <span onClick={handlerChangeText}>{authStateRedux ? "Sign Up" : "Register?" }</span>
       </div>      
     </form>
   );
