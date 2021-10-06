@@ -29,7 +29,7 @@ const Navbar = ({toggleMenu, isActive, bgActive=false, openModal}) => {
           }
           {
             (!isLoadingUser && localId) && (
-              <Link className={s.loginWrap} to="/login">
+              <Link className={s.loginWrap} to="/user">
                 <UserSVG />
               </Link>
             )
