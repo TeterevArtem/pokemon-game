@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice ({
   name: "loginForm",
   initialState : {
-    isAuth : false,
+    isAuth : true,
   },
   reducers: {
     changeTextButton: state => ({

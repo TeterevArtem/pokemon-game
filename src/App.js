@@ -12,11 +12,26 @@ import s from './style.module.css';
 import 'react-notifications/lib/notifications.css';
 import FirebaseClass from './service/firebase';
 import PrivateRoute from './component/privateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUserAsync } from './store/users';
+import { selectUserLoading } from './store/users';
+import UserPage from './routes/user';
 
 
 const App = () => {
+  const isUserLoading = useSelector(selectUserLoading)
   const location = useLocation();
   const isPadding = location.pathname === '/' || location.pathname === '/game/board'
+  const dispatch = useDispatch();
+
+  useEffect( () => {
+    dispatch(getUserAsync())
+  },[])
+
+  if(isUserLoading) {
+    return "is loading"
+  }
 
   return(
     <FirebaseContext.Provider value={FirebaseClass}>
@@ -33,6 +48,7 @@ const App = () => {
                 <PrivateRoute path="/game" component={GamePage}/>
                 <PrivateRoute path="/about" component={AboutPage}/>
                 <PrivateRoute path="/contacts" component={ContactsPage}/>
+                <PrivateRoute path="/user" component={UserPage}/>
                 <Route render={ () => (
                   <Redirect to="/404" />
                 )} />

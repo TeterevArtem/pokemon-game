@@ -10,6 +10,7 @@ const StartPage = () => {
 
   const history = useHistory('/')
   const pokemonStoreData = useSelector(selectPokemonData);
+  console.log(pokemonStoreData);
   
   const dispatch = useDispatch();
   

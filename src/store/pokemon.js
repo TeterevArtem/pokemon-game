@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import FireBaseClass from "../service/firebase";
-
+import { selectUserLocalId } from "./users";
 export const slice = createSlice({
   name: 'pokemons',
   initialState: {
@@ -69,9 +68,12 @@ export const selectPokemonLoading = state => state.pokemons.isLoading;
 export const selectPokemonData = state => state.pokemons.data;
 export const selectedPokemonPlayer1 = state => state.pokemons.selectedPokemon1;
 
-export const getPokemonAsync = () => async (dispatch) => {
-  dispatch(fetchPokemons);
-  const data = await FireBaseClass.getPokemonsOnce();
+export const getPokemonAsync = () => async (dispatch, getState) => {
+  const localId = selectUserLocalId(getState())
+  
+  dispatch(fetchPokemons());
+  const data = await fetch(`https://pokemon-game-7cbbc-default-rtdb.firebaseio.com/${localId}/pokemons.json`).then(res => res.json());
+  
   dispatch(fetchPokemonsResolve(data))
 }
 
